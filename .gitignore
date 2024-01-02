@@ -1,0 +1,14 @@
+### ide/os files
+/.buildpath
+/.project
+/.settings
+/.idea
+/.DS_Store
+
+### md renderings
+*.md.html
+/.php_cs.cache
+
+### Travis Builds
+/.Build
+composer.lock

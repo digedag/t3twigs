@@ -1,0 +1,15 @@
+lib.tx_t3twigs {
+    templatepaths {
+        T3twigs = EXT:t3twigs/Resources/Private/Template
+    }
+    extensions {
+        twigBase_Debug = Twig_Extension_Debug
+        t3twigs_dateExtension = System25\T3twigs\Twig\Extension\DateExtension
+        t3twigs_mediaObject = System25\T3twigs\Twig\Extension\ImageExtension
+        t3twigs_languageExtension = System25\T3twigs\Twig\Extension\LanguageExtension
+        t3twigs_linkExtension = System25\T3twigs\Twig\Extension\LinkExtension
+        t3twigs_requestExtension = System25\T3twigs\Twig\Extension\RequestExtension
+        t3twigs_tsFeExtension = System25\T3twigs\Twig\Extension\TsFeExtension
+        t3twigs_tsParseExtension = System25\T3twigs\Twig\Extension\TSParserExtension
+    }
+}
