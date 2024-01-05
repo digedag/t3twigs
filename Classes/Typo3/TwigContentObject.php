@@ -25,19 +25,23 @@ namespace System25\T3twigs\Typo3;
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use DMK\T3twig\Twig\RendererTwig as Renderer;
-use DMK\T3twig\Twig\T3TwigException;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use Sys25\RnBase\Configuration\Processor;
+use System25\T3twigs\Twig\RendererTwig;
+use System25\T3twigs\Twig\T3TwigsException;
 use TYPO3\CMS\Frontend\ContentObject\AbstractContentObject;
 use tx_rnbase;
 
 class TwigContentObject extends AbstractContentObject
 {
+    private $renderer;
     public function __construct($cObject = null)
     {
-        if ($cObject) {
+        if (!($cObject instanceof RendererTwig)) {
             parent::__construct($cObject);
+        } else {
         }
+
+        $this->renderer = $cObject instanceof RendererTwig ? $cObject : tx_rnbase::makeInstance(RendererTwig::class);
     }
 
     /**
@@ -69,16 +73,12 @@ class TwigContentObject extends AbstractContentObject
     public function render(
         $conf = []
     ) {
-        $content = '';
 
         $configurations = $this->buildConfigurations($conf);
-        $renderer = Renderer::instance(
-            $configurations,
-            ''
-        );
+
         $contextData = $this->getContext($configurations);
 
-        $content .= $renderer->render($contextData);
+        $content = $this->renderer->render($contextData, $configurations);
 
         return $content;
     }
@@ -88,20 +88,20 @@ class TwigContentObject extends AbstractContentObject
      *
      * @param array $conf
      *
-     * @return \Sys25\RnBase\Configuration\Processor
+     * @return Processor
      */
     private function buildConfigurations(
         array $conf
     ) {
-        /** @var $configurations \Sys25\RnBase\Configuration\ConfigurationInterface */
+        /** @var $configurations Processor */
         $configurations = tx_rnbase::makeInstance(
-            \Sys25\RnBase\Configuration\Processor::class
+            Processor::class
         );
         $configurations->init(
             $conf,
-            $this->getContentObject(),
-            't3twig',
-            't3twig'
+            $this->getContentObjectRenderer(),
+            't3twigs',
+            't3twigs'
         );
 
         return $configurations;
@@ -110,7 +110,7 @@ class TwigContentObject extends AbstractContentObject
     /**
      * Compile rendered content objects in variables array ready to assign to the view.
      *
-     * @param \Sys25\RnBase\Configuration\Processor $configurations
+     * @param Processor $configurations
      *
      * @return array the variables to be assigned
      *
@@ -128,12 +128,12 @@ class TwigContentObject extends AbstractContentObject
             if (!in_array($key, $reservedVariables)) {
                 $contextData[$key] = $configurations->get('context.'.$key, true);
             } else {
-                throw new T3TwigException('Cannot use reserved name "'.$key.'" as variable name in TWIGTEMPLATE.', 1288095720);
+                throw new T3TwigsException('Cannot use reserved name "'.$key.'" as variable name in TWIGTEMPLATE.', 1288095720);
             }
         }
 
-        $contextData['data'] = $this->getContentObject()->data;
-        $contextData['current'] = $this->getContentObject()->data[$this->getContentObject()->currentValKey];
+        $contextData['data'] = $this->getContentObjectRenderer()->data;
+        $contextData['current'] = $this->getContentObjectRenderer()->data[$this->getContentObjectRenderer()->currentValKey] ?? '';
 
         return $contextData;
     }

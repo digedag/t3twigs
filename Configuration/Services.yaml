@@ -8,6 +8,9 @@ services:
     resource: '../Classes/*'
 
   System25\T3twigs\Typo3\TwigContentObject:
+    public: true
+    arguments:
+      $cObject: '@System25\T3twigs\Twig\RendererTwig'
     tags:
       - name: frontend.contentobject
         identifier: 'TWIGTEMPLATE'
