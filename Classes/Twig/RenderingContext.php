@@ -49,7 +49,7 @@ class RenderingContext
     /**
      * Filepath to alternativ fallback template.
      *
-     * @var \Sys25\RnBase\Configuration\ConfigurationInterface
+     * @var ConfigurationInterface
      */
     protected $configurations;
 
