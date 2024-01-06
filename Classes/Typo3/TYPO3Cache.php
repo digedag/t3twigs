@@ -2,8 +2,8 @@
 
 namespace System25\T3twigs\Typo3;
 
-use Sys25\RnBase\Cache\CacheManager as CacheCacheManager;
 use Twig\Cache\CacheInterface;
+use tx_rnbase;
 use TYPO3\CMS\Core\Cache\CacheManager;
 use TYPO3\CMS\Core\Cache\Frontend\PhpFrontend;
 
@@ -18,7 +18,11 @@ class TYPO3Cache implements CacheInterface
 
     public function __construct(CacheManager $cacheManager = null)
     {
-        $this->delegate = $cacheManager ? $cacheManager->getCache(self::CACHE_NAME) : CacheCacheManager::getCache(self::CACHE_NAME);
+        if (!$cacheManager) {
+            $cacheManager = tx_rnbase::makeInstance(CacheManager::class);
+        }
+
+        $this->delegate = $cacheManager->getCache(self::CACHE_NAME);
     }
 
     public function generateKey($name, $className)

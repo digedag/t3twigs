@@ -2,8 +2,9 @@
 
 namespace System25\T3twigs\Twig\Loader;
 
+use Sys25\RnBase\Utility\Environment;
+use Sys25\RnBase\Utility\Extensions;
 use Twig\Loader\FilesystemLoader;
-use TYPO3\CMS\Core\Core\Environment;
 
 /***************************************************************
  * Copyright notice
@@ -86,13 +87,13 @@ class T3FileSystem extends FilesystemLoader
     protected function addT3Namespaces()
     {
         $extKeys = array_filter(
-            \Sys25\RnBase\Utility\Extensions::getLoadedExtensionListArray(),
+            Extensions::getLoadedExtensionListArray(),
             function ($v) {
                 return !in_array($v, self::$sysExtKeys);
             }
         );
         foreach ($extKeys as $extKey) {
-            $path = \Sys25\RnBase\Utility\Extensions::extPath($extKey);
+            $path = Extensions::extPath($extKey);
             $path .= 'Resources/Private/Templates/';
             if (is_dir($path)) {
                 $this->addPath($path, 'EXT:'.$extKey);

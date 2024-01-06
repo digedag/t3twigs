@@ -53,7 +53,7 @@ class RendererTwig
     }
 
     public function __construct(
-        TYPO3Cache $cache
+        TYPO3Cache $cache = null
     ) {
         $this->cache = $cache ?: tx_rnbase::makeInstance(TYPO3Cache::class);
     }
