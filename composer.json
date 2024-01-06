@@ -16,10 +16,26 @@
             "role": "Developer"
         }
     ],
+    "support": {
+        "email": "rene@system25.de",
+		"source": "https://github.com/digedag/t3twigs",
+		"issues": "https://github.com/digedag/t3twigs/issues"
+    },
+    "replace": {
+        "typo3-ter/t3twigs": "*"
+    },
     "require": {
         "typo3/cms-core": "^8.7 || ^9.5 || ^10.4 || ^11.5 || ^12.4",
         "digedag/rn-base": "~1.18.0",
         "twig/twig": "~2.16"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "mikey179/vfsstream": "^1.6",
+        "typo3/testing-framework": "^2.0 || ^3.0 || ^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0",
+        "phpcompatibility/php-compatibility": "^9.3.5",
+        "phpunit/phpunit": "^6.5.14 || ^7.5.20 || ^8.0 || ^9.0",
+		"phpspec/prophecy-phpunit": "^1.0 || ^2.0"
     },
     "suggest": {
         "twig/extensions": "Common additional features for Twig that do not directly belong in core. See @Documentation/reference/extensions/ThirdParty.md"
@@ -29,18 +45,30 @@
             "System25\\T3twigs\\": "Classes"
         }
     },
-    "support": {
-        "email": "rene@system25.de"
-    },
-    "replace": {
-        "typo3-ter/t3twigs": "*"
+    "autoload-dev": {
+        "psr-4": {
+            "System25\\T3twigs\\Tests\\" : "Tests/Unit/PHP"
+        }
     },
     "config": {
         "vendor-dir": ".Build/vendor",
         "bin-dir": ".Build/bin",
         "preferred-install": {
             "typo3/cms": "source"
+        },
+        "allow-plugins": {
+            "typo3/class-alias-loader": true,
+            "typo3/cms-composer-installers": true,
+            "phpstan/extension-installer": true
         }
+    },
+    "scripts": {
+        "test:phplint": "find *.php Classes Configuration Tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l",
+        "test:phpcompat": ".Build/bin/phpcs --ignore=.Build/*,Resources/* -p . --standard=.Build/vendor/phpcompatibility/php-compatibility/PHPCompatibility --runtime-set testVersion ",
+        "post-autoload-dump": [
+            "mkdir -p .Build/Web/typo3conf/ext/",
+            "[ -L .Build/Web/typo3conf/ext/t3twigs ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/t3twigs"
+        ]
     },
     "extra": {
         "typo3/cms": {

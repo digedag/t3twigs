@@ -85,10 +85,12 @@ class RenderingContext
     {
         return $this->conf;
     }
+
     public function getConfId(): string
     {
         return $this->confId;
     }
+
     public function getConfigurations(): ConfigurationInterface
     {
         return $this->configurations;

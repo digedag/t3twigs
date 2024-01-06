@@ -9,18 +9,17 @@ use TYPO3\CMS\Core\Cache\Frontend\PhpFrontend;
 
 class TYPO3Cache implements CacheInterface
 {
-    private const CACHE_NAME = 't3twigs';
+    public const CACHE_NAME = 't3twigs';
 
     /**
      * @var PhpFrontend
      */
     private $delegate;
 
-    public function __construct(?CacheManager $cacheManager = null)
+    public function __construct(CacheManager $cacheManager = null)
     {
         $this->delegate = $cacheManager ? $cacheManager->getCache(self::CACHE_NAME) : CacheCacheManager::getCache(self::CACHE_NAME);
     }
-
 
     public function generateKey($name, $className)
     {

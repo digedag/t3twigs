@@ -43,9 +43,8 @@ abstract class AbstractExtension extends TwigAbstractExtension implements T3twig
      * @param EnvironmentTwig $env
      * @param array           $arguments
      *
-     * @throws \Exception
-     *
      * @return mixed
+     * @throws Exception
      */
     protected function performCommand(
         $callable,

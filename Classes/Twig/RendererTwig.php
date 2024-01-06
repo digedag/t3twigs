@@ -25,13 +25,16 @@ namespace System25\T3twigs\Twig;
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-use \Sys25\RnBase\Configuration\ConfigurationInterface;
+use Exception;
+use Sys25\RnBase\Configuration\ConfigurationInterface;
 use Sys25\RnBase\Utility\Files;
 use System25\T3twigs\Twig\Extension\AbstractExtension;
 use System25\T3twigs\Twig\Loader\T3FileSystem;
 use System25\T3twigs\Typo3\TYPO3Cache;
+use Throwable;
 use Twig\Extension\ExtensionInterface;
 use Twig\Template;
+use Twig_Error_Runtime;
 use tx_rnbase;
 
 class RendererTwig
@@ -54,7 +57,7 @@ class RendererTwig
     ) {
         $this->cache = $cache ?: tx_rnbase::makeInstance(TYPO3Cache::class);
     }
-    
+
     /**
      * Renders the viewdata throu a template.
      *
@@ -63,10 +66,10 @@ class RendererTwig
      * @return string The filan template
      *
      * @throws T3TwigException
-     * @throws \Exception
+     * @throws Exception
      * @throws \TYPO3\CMS\Core\Exception
-     * @throws \Throwable
-     * @throws \Twig_Error_Runtime
+     * @throws Throwable
+     * @throws Twig_Error_Runtime
      */
     public function render(
         array $data,
@@ -85,7 +88,7 @@ class RendererTwig
             throw new T3TwigsException('Template file not found or empty: '.$templateFullFilePath);
         }
 
-        $twigLoader =  new T3FileSystem(dirname($templateFullFilePath));
+        $twigLoader = new T3FileSystem(dirname($templateFullFilePath));
 
         foreach ($context->getTemplatePaths() as $namespace => $path) {
             $twigLoader->addPath(
@@ -150,6 +153,7 @@ class RendererTwig
             $environment->addExtension($extInstance);
         }
     }
+
     /**
      * Returns an instance of twig environment.
      *

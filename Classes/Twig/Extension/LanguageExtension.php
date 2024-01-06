@@ -29,7 +29,6 @@ use Twig\TwigFilter;
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-
 /**
  * Class LanguageExtension.
  *

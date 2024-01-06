@@ -2,9 +2,6 @@
 
 namespace System25\T3twigs\Twig;
 
-use Sys25\RnBase\Configuration\ConfigurationInterface;
-use Sys25\RnBase\Utility\Arrays;
-use Sys25\RnBase\Utility\Files;
 use Twig\Extension\ExtensionInterface;
 
 /***************************************************************

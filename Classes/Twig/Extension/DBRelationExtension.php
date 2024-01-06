@@ -28,6 +28,7 @@ namespace System25\T3twigs\Twig\Extension;
  * *************************************************************
  */
 
+use Exception;
 use Sys25\RnBase\Domain\Model\BaseModel;
 use Sys25\RnBase\Search\SearchBase;
 use Sys25\RnBase\Utility\Arrays;
@@ -71,7 +72,7 @@ class DBRelationExtension extends AbstractExtension implements T3twigsExtensionI
         $alias = $env->getConfigurations()->get($confId.'join.alias');
         $field = $env->getConfigurations()->get($confId.'join.field');
         if (!$alias || !$field) {
-            throw new \Exception(sprintf("Verify config for relation '%s' Table alias or field not found. Full typoscript path: %s", htmlspecialchars($arguments['relation']), $confId));
+            throw new Exception(sprintf("Verify config for relation '%s' Table alias or field not found. Full typoscript path: %s", htmlspecialchars($arguments['relation']), $confId));
         }
 
         $fields = $options = [];

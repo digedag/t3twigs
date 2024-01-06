@@ -4,6 +4,7 @@
 /.settings
 /.idea
 /.DS_Store
+/var
 
 ### md renderings
 *.md.html

@@ -48,6 +48,7 @@ class RenderTwigViewHelper extends AbstractViewHelper
 
     /** @var RendererTwig */
     private $renderer;
+
     public function __construct($renderer = null)
     {
         $this->renderer = $renderer ?: tx_rnbase::makeInstance(RendererTwig::class);

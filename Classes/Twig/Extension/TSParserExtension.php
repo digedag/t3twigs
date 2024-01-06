@@ -34,7 +34,6 @@ use Twig\TwigFunction;
  * This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-
 class TSParserExtension extends AbstractExtension
 {
     /**
@@ -184,9 +183,8 @@ class TSParserExtension extends AbstractExtension
      * @param string $confId
      * @param array $arguments
      *
-     * @throws \Exception
-     *
      * @return string
+     * @throws Exception
      */
     public function renderContentObject(
         EnvironmentTwig $env,
@@ -214,9 +212,8 @@ class TSParserExtension extends AbstractExtension
      * @param string $confId
      * @param array $arguments
      *
-     * @throws Exception
-     *
      * @return string
+     * @throws Exception
      */
     public function renderStdWrap(
         EnvironmentTwig $env,
@@ -244,9 +241,8 @@ class TSParserExtension extends AbstractExtension
      * @param string $confId
      * @param array $arguments
      *
-     * @throws Exception
-     *
      * @return string
+     * @throws Exception
      */
     public function renderTsRaw(
         EnvironmentTwig $env,
@@ -279,9 +275,8 @@ class TSParserExtension extends AbstractExtension
      * @param string $typoscriptObjectPath
      * @param DataModel $arguments
      *
-     * @throws \Exception
-     *
      * @return array
+     * @throws Exception
      */
     protected function findSetup(
         EnvironmentTwig $env,
@@ -306,7 +301,7 @@ class TSParserExtension extends AbstractExtension
 
         // check the ts path and find the setup config
         foreach ($pathSegments as $segment) {
-            if (!array_key_exists(($segment.'.'), $setup)) {
+            if (!array_key_exists($segment.'.', $setup)) {
                 $setup = false;
                 break;
             }

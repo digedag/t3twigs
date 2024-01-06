@@ -1,4 +1,5 @@
 <?php
+
 namespace System25\T3twigs\View;
 
 /***************************************************************
@@ -25,9 +26,9 @@ namespace System25\T3twigs\View;
  ***************************************************************/
 
 //use System25\T3twigs\Twig\RendererTwig as Renderer;
+use Sys25\RnBase\Frontend\Request\RequestInterface;
 use Sys25\RnBase\Frontend\View\AbstractView;
 use Sys25\RnBase\Frontend\View\ViewInterface;
-use Sys25\RnBase\Frontend\Request\RequestInterface;
 
 class TwigView extends AbstractView implements ViewInterface
 {

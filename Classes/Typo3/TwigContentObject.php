@@ -28,12 +28,13 @@ namespace System25\T3twigs\Typo3;
 use Sys25\RnBase\Configuration\Processor;
 use System25\T3twigs\Twig\RendererTwig;
 use System25\T3twigs\Twig\T3TwigsException;
-use TYPO3\CMS\Frontend\ContentObject\AbstractContentObject;
 use tx_rnbase;
+use TYPO3\CMS\Frontend\ContentObject\AbstractContentObject;
 
 class TwigContentObject extends AbstractContentObject
 {
     private $renderer;
+
     public function __construct($cObject = null)
     {
         if (!($cObject instanceof RendererTwig)) {
@@ -73,7 +74,6 @@ class TwigContentObject extends AbstractContentObject
     public function render(
         $conf = []
     ) {
-
         $configurations = $this->buildConfigurations($conf);
 
         $contextData = $this->getContext($configurations);
