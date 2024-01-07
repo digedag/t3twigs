@@ -2,9 +2,9 @@
 
 $EM_CONF[$_EXTKEY] = [
     'title' => 'T3twigs',
-    'description' => 'TYPO3 extension to render page templates with Twig',
+    'description' => 'TYPO3 extension to render page templates with Twig. Usable in composer mode only.',
     'shy' => 0,
-    'version' => '0.0.2',
+    'version' => '1.0.0',
     'dependencies' => 'cms',
     'conflicts' => '',
     'priority' => '',
@@ -31,5 +31,4 @@ $EM_CONF[$_EXTKEY] = [
     ],
     '_md5_values_when_last_written' => '',
     'suggests' => [],
-    'createDirs' => 'typo3temp/t3twigs/',
 ];
