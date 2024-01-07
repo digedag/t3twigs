@@ -30,7 +30,6 @@ use DateInterval;
 use System25\T3twigs\Twig\EnvironmentTwig;
 use Twig\Extension\CoreExtension;
 use Twig\TwigFilter;
-use TYPO3\CMS\Core\Core\Environment;
 
 class DateExtension extends AbstractExtension
 {
@@ -75,28 +74,6 @@ class DateExtension extends AbstractExtension
 
         $date = $date->format('U');
 
-        // some conversion for windows systems
-        if (Environment::isWindows()) {
-            $mapping = [
-                '%C' => sprintf('%02d', date('Y', $date) / 100),
-                '%D' => '%m/%d/%y',
-                '%e' => sprintf("%' 2d", date('j', $date)),
-                '%G' => '%Y',
-                '%h' => '%b',
-                '%n' => "\n",
-                '%r' => date('h:i:s', $date).' %p',
-                '%R' => date('H:i', $date),
-                '%t' => "\t",
-                '%T' => '%H:%M:%S',
-                '%u' => ($w = date('w', $date)) ? $w : 7,
-            ];
-            $format = str_replace(
-                array_keys($mapping),
-                array_values($mapping),
-                $format
-            );
-        }
-
         return $this->performCommand(
             function () use ($format, $date) {
                 return strftime($format, $date);
@@ -113,6 +90,6 @@ class DateExtension extends AbstractExtension
      */
     public function getName(): string
     {
-        return 't3twig_dateExtension';
+        return 't3twigs_dateExtension';
     }
 }

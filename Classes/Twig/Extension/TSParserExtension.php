@@ -325,6 +325,6 @@ class TSParserExtension extends AbstractExtension
 
     public function getName(): string
     {
-        return 't3twig_tsParserExtension';
+        return 't3twigs_tsParserExtension';
     }
 }

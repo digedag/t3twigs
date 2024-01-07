@@ -98,6 +98,6 @@ class RequestExtension extends AbstractExtension
      */
     public function getName(): string
     {
-        return 't3twig_requestExtension';
+        return 't3twigs_requestExtension';
     }
 }

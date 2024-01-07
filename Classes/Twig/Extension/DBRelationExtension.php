@@ -102,6 +102,6 @@ class DBRelationExtension extends AbstractExtension implements T3twigsExtensionI
      */
     public function getName(): string
     {
-        return 't3twig_dbrelationExtension';
+        return 't3twigs_dbrelationExtension';
     }
 }

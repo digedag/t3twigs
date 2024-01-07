@@ -74,6 +74,6 @@ class LanguageExtension extends AbstractExtension
      */
     public function getName(): string
     {
-        return 't3twig_languageExtension';
+        return 't3twigs_languageExtension';
     }
 }

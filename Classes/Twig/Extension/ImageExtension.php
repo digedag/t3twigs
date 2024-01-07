@@ -84,6 +84,12 @@ class ImageExtension extends AbstractExtension
 
         return $this->performCommand(
             function (\Sys25\RnBase\Domain\Model\DataModel $arguments) use ($env, $image) {
+                $conf = $arguments->getTsConfig();
+                $conf['file'] = $image;
+                $image = $env->getContentObject()->cObjGetSingle('IMAGE', $conf);
+
+                return $image;
+
                 return $env->getContentObject()->cImage(
                     $image,
                     $arguments->getTsConfig()

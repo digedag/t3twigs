@@ -105,7 +105,7 @@ class LinkExtension extends AbstractExtension
      */
     public function getName(): string
     {
-        return 't3twig_linkExtension';
+        return 't3twigs_linkExtension';
     }
 
     /**

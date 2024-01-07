@@ -88,6 +88,6 @@ class TsFeExtension extends AbstractExtension implements GlobalsInterface, T3twi
      */
     public function getName(): string
     {
-        return 't3twig_tsFeExtension';
+        return 't3twigs_tsFeExtension';
     }
 }

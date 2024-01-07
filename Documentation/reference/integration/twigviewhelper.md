@@ -29,7 +29,7 @@ Content of the Twig template from above:
     <h2>{{ title }}</h2>
     {{
         t3image(
-            'EXT:t3twigs/ext_icon.png',
+            'EXT:t3twigs/Resources/Public/Icons/Extension.svg',
             {
                 'params' : 'style="float:left; margin: 0 10px 10px 0;"'
             }
@@ -59,7 +59,7 @@ Result:
 
 ```html
     <h2>Twig-ViewHelper</h2>
-    <img src="typo3conf/ext/t3twig/ext_icon.png" width="64" height="64"  style="float:left; margin: 0 10px 10px 0;"  alt="" >
+    <img src="typo3conf/ext/t3twigs/Resources/Public/Icons/Extension.svg" width="64" height="64"  style="float:left; margin: 0 10px 10px 0;"  alt="" >
     <p>
         Render Twig templates from within Fluid!
         <br />
