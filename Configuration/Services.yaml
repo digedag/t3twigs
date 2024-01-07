@@ -1,0 +1,16 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  System25\T3twigs\:
+    resource: '../Classes/*'
+
+  System25\T3twigs\Typo3\TwigContentObject:
+    public: true
+    arguments:
+      $cObject: '@System25\T3twigs\Twig\RendererTwig'
+    tags:
+      - name: frontend.contentobject
+        identifier: 'TWIGTEMPLATE'

@@ -1,0 +1,25 @@
+<div>
+<h2>Hello <span class="badge bg-secondary">{{name}}</span></h2>
+
+
+{{
+    t3image(
+        'EXT:t3twigs/Resources/Public/Icons/Extension.svg',
+        {
+            'params' : 'style="margin: 0 10px 10px 0;"',
+            'file.' : {
+                'maxH': '90'
+            }
+        }
+    )|t3link(
+        {
+            'destination' : 'https://github.com/digedag/t3twigs/',
+            'params' : {'someparam':'somevalue'},
+            'ts_path' : 'link.',
+            'ts_config' : {"atagparams" : {"class" : "btn btd-default"}}
+        }
+    )
+}}
+<br>
+Current time: {{ 'now'|t3strftime('%e. %B %G %H:%M Uhr') }}
+</div>

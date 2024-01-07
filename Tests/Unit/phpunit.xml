@@ -1,0 +1,35 @@
+<phpunit
+    backupGlobals="true"
+    backupStaticAttributes="false"
+    bootstrap="../../.Build/vendor/typo3/testing-framework/Resources/Core/Build/UnitTestsBootstrap.php"
+    cacheResultFile="../../.Build/.phpunit.result.cache"
+    colors="true"
+    convertErrorsToExceptions="true"
+    convertWarningsToExceptions="true"
+    beStrictAboutTestsThatDoNotTestAnything="false"
+    forceCoversAnnotation="false"
+    processIsolation="false"
+    stopOnError="false"
+    stopOnFailure="false"
+    stopOnIncomplete="false"
+    stopOnSkipped="false"
+    verbose="false"
+>
+
+    <!--php>
+        <env name="TYPO3_PATH_WEB" value="web"/>
+    </php-->
+
+    <testsuites>
+        <testsuite name="T3twigs unit tests">
+            <directory>PHP/</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory suffix=".php">Classes/</directory>
+        </whitelist>
+    </filter>
+
+</phpunit>
