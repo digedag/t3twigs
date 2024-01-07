@@ -12,14 +12,6 @@
 
 Use [Twig](https://twig.symfony.com/) as template enginge for TYPO3 template development instead of fluid or marker templates.
 
-## Credits
-
-This extensions was forked from [t3twig](https://github.com/DMKEBUSINESSGMBH/typo3-t3twig).
-
-* [Michael Wagner](https://github.com/rengaw83)
-* [RocKordier](https://github.com/RocKordier)
-* [Markus Bachmann](https://github.com/Baachi)
-
 
 ### Installation
 
@@ -28,3 +20,11 @@ Install TYPO3 via composer. From project root you need to run
 ```bash
 composer require "digedag/t3twigs"
 ```
+
+### Credits
+
+This extensions was forked from [t3twig](https://github.com/DMKEBUSINESSGMBH/typo3-t3twig).
+
+* [Michael Wagner](https://github.com/rengaw83)
+* [RocKordier](https://github.com/RocKordier)
+* [Markus Bachmann](https://github.com/Baachi)

@@ -1,3 +1,3 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="80" height="24px" viewBox="0 0 64 64" style="background-color: #007DB5;">
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="20px" viewBox="0 0 64 64" style="background-color: #007DB5;">
   <text x="50%" y="50%" font-family="Arial, sans-serif" font-weight="bolder" font-size="32" fill="#FFFFFF" text-anchor="middle" dy=".3em">{{t3twigs}}</text>
 </svg>
