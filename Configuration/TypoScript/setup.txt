@@ -3,7 +3,7 @@ lib.tx_t3twigs {
         T3twigs = EXT:t3twigs/Resources/Private/Templates
     }
     extensions {
-        twigBase_Debug = Twig_Extension_Debug
+        twigBase_Debug = Twig\Extension\DebugExtension
         t3twigs_dateExtension = System25\T3twigs\Twig\Extension\DateExtension
         t3twigs_mediaObject = System25\T3twigs\Twig\Extension\ImageExtension
         t3twigs_languageExtension = System25\T3twigs\Twig\Extension\LanguageExtension

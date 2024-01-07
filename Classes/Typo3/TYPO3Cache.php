@@ -25,7 +25,7 @@ class TYPO3Cache implements CacheInterface
         $this->delegate = $cacheManager->getCache(self::CACHE_NAME);
     }
 
-    public function generateKey($name, $className)
+    public function generateKey(string $name, string $className): string
     {
         $cacheKey = implode('_', [$name, $className]);
         // strip all unallowed characters
@@ -34,17 +34,17 @@ class TYPO3Cache implements CacheInterface
         return $cacheKey;
     }
 
-    public function write($key, $content)
+    public function write($key, $content): void
     {
         $this->delegate->set($key, '#'.$content);
     }
 
-    public function load($key)
+    public function load($key): void
     {
         $this->delegate->requireOnce($key);
     }
 
-    public function getTimestamp($key)
+    public function getTimestamp($key): int
     {
         if (!$this->delegate->has($key)) {
             return 0;

@@ -53,7 +53,7 @@ class TsFeExtension extends AbstractExtension implements GlobalsInterface, T3twi
      *
      * @see Twig_Extension::getGlobals()
      */
-    public function getGlobals()
+    public function getGlobals(): array
     {
         return [
             'tsfe' => $GLOBALS['TSFE'],

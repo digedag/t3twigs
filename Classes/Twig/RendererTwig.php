@@ -108,7 +108,7 @@ class RendererTwig
         /**
          * @var Template
          */
-        $template = $twigEnv->loadTemplate(
+        $template = $twigEnv->load(
             basename($templateFullFilePath)
         );
 
