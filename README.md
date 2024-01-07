@@ -1,7 +1,7 @@
 # README
 
 ![TYPO3 compatibility](https://img.shields.io/badge/TYPO3-8.7%20%7C%209.5%20%7C%2010.4%20%7C%2011.5%20%7C%2012.4-orange?maxAge=3600&style=flat-square&logo=typo3)
-[![t3twigs](Resources/Public/Icons/Extension.svg)](https://github.com/digedag/t3twigs)
+[![t3twigs](Resources/Public/Icons/Extension_flat.svg)](https://github.com/digedag/t3twigs)
 [![Latest Stable Version](https://img.shields.io/packagist/v/digedag/t3twigs.svg?maxAge=3600&style=flat-square)](https://packagist.org/packages/digedag/t3twigs)
 [![Code Style](https://github.com/digedag/t3twigs/actions/workflows/php.yaml/badge.svg)](https://github.com/digedag/t3twigs/actions/workflows/php.yaml)
 [![License](https://img.shields.io/packagist/l/digedag/t3twigs.svg?maxAge=3600&style=flat-square)](https://packagist.org/packages/digedag/t3twigs)
