@@ -5,7 +5,7 @@ if (!(defined('TYPO3') || defined('TYPO3_MODE'))) {
 }
 
 $GLOBALS['TYPO3_CONF_VARS']['FE']['ContentObjects'] = array_merge(
-    $GLOBALS['TYPO3_CONF_VARS']['FE']['ContentObjects'],
+    $GLOBALS['TYPO3_CONF_VARS']['FE']['ContentObjects'] ?? [],
     [
         'TWIGTEMPLATE' => \System25\T3twigs\ContentObject\TwigContentObject::class,
     ]
