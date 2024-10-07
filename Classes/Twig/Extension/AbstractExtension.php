@@ -48,7 +48,7 @@ abstract class AbstractExtension extends TwigAbstractExtension implements T3twig
      */
     protected function performCommand(
         $callable,
-        EnvironmentTwig $env = null,
+        ?EnvironmentTwig $env = null,
         $arguments = null
     ) {
         $cObj = $env->getContentObject();
@@ -89,7 +89,7 @@ abstract class AbstractExtension extends TwigAbstractExtension implements T3twig
      */
     protected function initiateArguments(
         $arguments = null,
-        EnvironmentTwig $env = null
+        ?EnvironmentTwig $env = null
     ) {
         $arguments = DataModel::getInstance($arguments);
 

@@ -16,7 +16,7 @@ class TYPO3Cache implements CacheInterface
      */
     private $delegate;
 
-    public function __construct(CacheManager $cacheManager = null)
+    public function __construct(?CacheManager $cacheManager = null)
     {
         if (!$cacheManager) {
             $cacheManager = tx_rnbase::makeInstance(CacheManager::class);
