@@ -3,14 +3,12 @@
 namespace System25\T3twigs\Twig;
 
 use Sys25\RnBase\Configuration\ConfigurationInterface;
-use Sys25\RnBase\Utility\Arrays;
 use Sys25\RnBase\Utility\Files;
-use Sys25\RnBase\Utility\TYPO3;
 
 /***************************************************************
  * Copyright notice
  *
- * (c) 2024 Rene Nitzsche (rene@system25.de)
+ * (c) 2024-2025 Rene Nitzsche (rene@system25.de)
  * All rights reserved
  *
  * This script is part of the TYPO3 project. The TYPO3 project is
@@ -32,13 +30,6 @@ use Sys25\RnBase\Utility\TYPO3;
 
 class RenderingContext
 {
-    /**
-     * Basic conf from lib.tx_t3twigs.
-     *
-     * @var array
-     */
-    protected $conf;
-
     /**
      * Filepath to alternativ fallback template.
      *
@@ -72,18 +63,9 @@ class RenderingContext
         string $confId = '',
         string $templateFile = ''
     ) {
-        $this->conf = [];
-        if (isset(TYPO3::getTSFE()->tmpl->setup['lib.']['tx_t3twigs.'])) {
-            $this->conf = TYPO3::getTSFE()->tmpl->setup['lib.']['tx_t3twigs.'];
-        }
         $this->configurations = $configurations;
         $this->confId = $confId;
         $this->fallbackTemplate = $templateFile;
-    }
-
-    public function getConf(): array
-    {
-        return $this->conf;
     }
 
     public function getConfId(): string
@@ -110,8 +92,8 @@ class RenderingContext
      */
     public function getTemplatePath()
     {
+        // Das ist die die Config des Plugins view.template.file Für das cObj ist es nur file
         $path = $this->getConfigurations()->get($this->getConfId().'file', true);
-        $path = $path ?: $this->getConfigurations()->get($this->getConfId().'template', true);
 
         if (empty($path)) {
             $path = $this->getFallbackTemplate();
@@ -121,8 +103,6 @@ class RenderingContext
         // so we try to add the base template path from the configuration.
         if (!empty($path) && false === strpos($path, '/')) {
             $basePath = $this->getConfigurations()->get('templatePath');
-            // add the first template include path
-            $basePath = $basePath ?: reset((array) $this->conf['templatepaths.']);
             if (!empty($basePath)) {
                 $path = $basePath.'/'.$path;
             }
@@ -142,15 +122,8 @@ class RenderingContext
      */
     public function getTemplatePaths(): array
     {
-        // initial use the global paths
-        $paths = $this->conf['templatepaths.'] ?? [];
-        // add the paths for the current render context
-        $paths = Arrays::mergeRecursiveWithOverrule(
-            $paths,
-            $this->getConfigurations()->getExploded(
-                $this->getConfId().'templatepaths.'
-            )
-        );
+        // Diese Pfade werden im Root der Configuration gesucht.
+        $paths = $this->getConfigurations()->get('t3twigs.templatepaths.', true);
 
         return $paths;
     }
@@ -162,17 +135,9 @@ class RenderingContext
      */
     public function getExtensions(): array
     {
-        // initial use the global paths
-        $paths = $this->conf['extensions.'] ?: [];
+        // Die Extensions werden im Root der Configuration gesucht.
+        $extensions = $this->getConfigurations()->get('t3twigs.extensions.', true);
 
-        // add the paths for the current render context
-        $paths = Arrays::mergeRecursiveWithOverrule(
-            $paths,
-            $this->getConfigurations()->getExploded(
-                $this->getConfId().'extensions.'
-            )
-        );
-
-        return $paths;
+        return $extensions;
     }
 }

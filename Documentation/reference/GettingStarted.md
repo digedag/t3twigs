@@ -14,6 +14,7 @@ First of all you need a [rn_base plugin](https://github.com/digedag/rn_base/blob
 Here you have to write all data into the $viewData object via `$viewData->offsetSet('key', 'value')` and `return null`
 
 Also you have to override the `getViewClassName()` function to use twig rendering
+
 ```php
 public function getViewClassName()
 {
@@ -22,6 +23,16 @@ public function getViewClassName()
 ```
 and the `protected function getTemplateName() {return 'templateName';}` to define your template name. Now the `templateName.html.twig` file is used from your templatePath which was configured via TS.
 
+Alternative:
+
+```
+plugin.tx_your_plugin {
+  your_view {
+    viewClassName = System25\T3twigs\View\TwigView
+    template.file = EXT:your_ext/Resources/Private/Templates/view_template.html.twig
+  }
+}
+```
 
 ### Usage for ThirdParty Plugins
 

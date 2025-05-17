@@ -59,11 +59,11 @@ class RendererTwig
     }
 
     /**
-     * Renders the viewdata throu a template.
+     * Renders the viewdata through a template.
      *
      * @param array $data
      *
-     * @return string The filan template
+     * @return string The final template
      *
      * @throws T3TwigException
      * @throws Exception

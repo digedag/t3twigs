@@ -93,7 +93,11 @@ class TwigContentObject extends AbstractContentObject
     private function buildConfigurations(
         array $conf
     ) {
-        /** @var $configurations Processor */
+        if (!isset($conf['t3twigs'])) {
+            $conf['t3twigs'] = '< lib.tx_t3twigs';
+        }
+
+        /** @var Processor $configurations */
         $configurations = tx_rnbase::makeInstance(
             Processor::class
         );
