@@ -52,6 +52,12 @@ class DBRelationExtension extends AbstractExtension implements T3twigsExtensionI
             ], [
                 'needs_environment' => true,
             ]),
+            new TwigFunction('t3dbsearch', [
+                $this,
+                'lookupSearch',
+            ], [
+                'needs_environment' => true,
+            ]),
         ];
     }
 
@@ -67,7 +73,12 @@ class DBRelationExtension extends AbstractExtension implements T3twigsExtensionI
         BaseModel $entity,
         array $arguments = []
     ) {
-        $confId = sprintf('%srelations.%s.', $env->getConfId(), htmlspecialchars($arguments['relation']));
+        $relName = htmlspecialchars($arguments['relation'] ?? '');
+        $tspath = htmlspecialchars($arguments['tspath'] ?? '');
+        if ($tspath) {
+            $tspath = rtrim($tspath, '.').'.';
+        }
+        $confId = sprintf('%sts.%srelations.%s.', $env->getConfId(), $tspath, $relName);
 
         $alias = $env->getConfigurations()->get($confId.'join.alias');
         $field = $env->getConfigurations()->get($confId.'join.field');
@@ -76,11 +87,41 @@ class DBRelationExtension extends AbstractExtension implements T3twigsExtensionI
         }
 
         $fields = $options = [];
-        $fields[$alias.'.'.$field][OP_EQ_INT] = $entity->getUid();
+        $onProp = $env->getConfigurations()->get($confId.'join.on');
+        $fields[$alias.'.'.$field][OP_EQ_INT] = $onProp ? $entity->getProperty($onProp) : $entity->getUid();
 
         SearchBase::setConfigFields($fields, $env->getConfigurations(), $confId.'fields.');
         SearchBase::setConfigOptions($options, $env->getConfigurations(), $confId.'options.');
 
+        if ($otherOptions = isset($arguments['options']) ? $arguments['options'] : []) {
+            $options = Arrays::mergeRecursiveWithOverrule($options, $otherOptions);
+        }
+
+        if ($otherFields = isset($arguments['fields']) ? $arguments['fields'] : []) {
+            $fields = Arrays::mergeRecursiveWithOverrule($fields, $otherFields);
+        }
+
+        $searcher = tx_rnbase::makeInstance($env->getConfigurations()->get($confId.'callback.class'));
+        $method = $env->getConfigurations()->get($confId.'callback.method');
+
+        return $searcher->$method($fields, $options);
+    }
+
+    /**
+     * @param EnvironmentTwig $env
+     * @param string $paramName
+     * @param array $arguments
+     *
+     * @return mixed|null
+     */
+    public function lookupSearch(
+        EnvironmentTwig $env,
+        array $arguments = []
+    ) {
+        $confId = sprintf('%sts.search.%s.', $env->getConfId(), htmlspecialchars($arguments['search']));
+        $fields = $options = [];
+        SearchBase::setConfigFields($fields, $env->getConfigurations(), $confId.'fields.');
+        SearchBase::setConfigOptions($options, $env->getConfigurations(), $confId.'options.');
         if ($otherOptions = isset($arguments['options']) ? $arguments['options'] : []) {
             $options = Arrays::mergeRecursiveWithOverrule($options, $otherOptions);
         }

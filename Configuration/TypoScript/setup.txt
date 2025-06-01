@@ -5,6 +5,7 @@ lib.tx_t3twigs {
     extensions {
         twigBase_Debug = Twig\Extension\DebugExtension
         t3twigs_dateExtension = System25\T3twigs\Twig\Extension\DateExtension
+        t3twigs_dbRelExtension = System25\T3twigs\Twig\Extension\DBRelationExtension
         t3twigs_mediaObject = System25\T3twigs\Twig\Extension\ImageExtension
         t3twigs_languageExtension = System25\T3twigs\Twig\Extension\LanguageExtension
         t3twigs_linkExtension = System25\T3twigs\Twig\Extension\LinkExtension
