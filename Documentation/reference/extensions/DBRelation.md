@@ -49,3 +49,25 @@ It is also possible to override options if you need this:
 }) %}
 
 ```
+
+
+## t3dbsearch
+
+### Define search in typoscript
+
+```
+plugin.tx_yourplugin {
+  yourview.template {
+    search {
+      fixtures {
+        fields.SYS_CATEGORY_RECORD_MM.tablenames.OP_EQ = tx_t3bookingplan_building
+        options.limit = 10
+        options.orderby.SYS_CATEGORY.TITLE = desc
+        callback.class = Sys25\RnBase\Domain\Repository\CategoryRepository
+        callback.method = search
+      }
+    }
+  }
+}
+
+```

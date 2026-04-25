@@ -129,8 +129,12 @@ class DBRelationExtension extends AbstractExtension implements T3twigsExtensionI
         if ($otherFields = isset($arguments['fields']) ? $arguments['fields'] : []) {
             $fields = Arrays::mergeRecursiveWithOverrule($fields, $otherFields);
         }
+        $searcherClass = $env->getConfigurations()->get($confId.'callback.class');
+        if (!$searcherClass) {
+            throw new Exception(sprintf("Verify ts config for search '%s', searchClass not found. Full typoscript path: %s", htmlspecialchars($arguments['search']), $confId));
+        }
 
-        $searcher = tx_rnbase::makeInstance($env->getConfigurations()->get($confId.'callback.class'));
+        $searcher = tx_rnbase::makeInstance($searcherClass);
         $method = $env->getConfigurations()->get($confId.'callback.method');
 
         return $searcher->$method($fields, $options);

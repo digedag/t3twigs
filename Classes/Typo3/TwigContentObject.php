@@ -37,9 +37,8 @@ class TwigContentObject extends AbstractContentObject
 
     public function __construct($cObject = null)
     {
-        if (!($cObject instanceof RendererTwig)) {
+        if (!$cObject instanceof RendererTwig) {
             parent::__construct($cObject);
-        } else {
         }
 
         $this->renderer = $cObject instanceof RendererTwig ? $cObject : tx_rnbase::makeInstance(RendererTwig::class);

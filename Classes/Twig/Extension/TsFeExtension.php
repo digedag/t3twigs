@@ -56,7 +56,7 @@ class TsFeExtension extends AbstractExtension implements GlobalsInterface, T3twi
     public function getGlobals(): array
     {
         return [
-            'tsfe' => $GLOBALS['TSFE'],
+            'tsfe' => TYPO3::getTSFE(),
             'pageRenderer' => TYPO3::getPageRenderer(),
         ];
     }
@@ -72,8 +72,8 @@ class TsFeExtension extends AbstractExtension implements GlobalsInterface, T3twi
             return '';
         }
 
-        $GLOBALS['TSFE']->altPageTitle = $value;
-        $GLOBALS['TSFE']->indexedDocTitle = $value;
+        TYPO3::getTSFE()->altPageTitle = $value;
+        TYPO3::getTSFE()->indexedDocTitle = $value;
 
         return sprintf(
             '<!-- page title set to "%s" by twig function "tsfePagetitle". -->',

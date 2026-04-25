@@ -1,0 +1,90 @@
+
+{% macro pb_pageinfo(pagebrowser, confId) %}
+    {% set pb = getPagination(pagebrowser, confId, {maxPages: 5}) %}
+    <p>{{ pb.status.rangeFrom }} - {{ pb.status.rangeTo }} von {{ pb.status.count }} Datensätzen</p>
+{% endmacro %}
+
+
+{% macro pb(pagebrowser, confId) %}
+    {% set paramName = pagebrowser.getParamName('pointer') %}
+    {% set pb = getPagination(pagebrowser, confId, {maxPages: 5}) %}
+
+    {% if pb.shouldRender %}
+        <ul class="pagination">
+            {% if pb.prev %}
+                {# Der Link für die erste Seite #}
+                <li><a href="{{ _self._page_uri(pb.first, paramName, confId) }}">&laquo;</a></li>
+                {# Der Link für die vorherige Seite #}
+                <li><a href="{{ _self._page_uri(pb.prev, paramName, confId) }}">&#x8B;</a></li>
+            {% endif %}
+
+            {% if pb.displayStart > pb.first %}
+                <li>...</li>
+            {% endif %}
+
+            {% for pageNum in pb.pages %}
+                {% set pageIdx = pageNum - 1 %}
+                {# Achtung: Da der Proxy 1-basiert ist, der Link aber 0-basiert sein muss: #}
+                <li class="{{ pageIdx == pb.current ? 'active' }}"><a href="{{ _self._page_uri(pageIdx, paramName, confId) }}">{{ pageNum }}</a></li>
+            {% endfor %}
+
+            {% if pb.displayEnd < pb.last %}
+                <li>...</li>
+            {% endif %}
+
+            {% if pb.next %}
+                {# Der Link für die nächste Seite #}
+                <li><a href="{{ _self._page_uri(pb.next, paramName, confId) }}">&#x9B;</a></li>
+                {# Der Link für die letzte Seite #}
+                <li><a href="{{ _self._page_uri(pb.last, paramName, confId) }}">&raquo;</a></li>
+            {% endif %}
+        </ul>
+    {% endif %}
+{% endmacro %}
+
+{% macro pb_bootstrap(pagebrowser, confId) %}
+    {% set paramName = pagebrowser.getParamName('pointer') %}
+    {% set pb = getPagination(pagebrowser, confId, {maxPages: 5}) %}
+
+    {% if pb.shouldRender %}    
+        <nav aria-label="Page navigation">
+        <ul class="pagination">
+            {% if pb.prev %}
+                {# Der Link für die erste Seite #}
+                <li class="page-item"><a class="page-link" href="{{ _self._page_uri(pb.first, paramName, confId) }}">&laquo;</a></li>
+                {# Der Link für die vorherige Seite #}
+                <li class="page-item"><a class="page-link" href="{{ _self._page_uri(pb.prev, paramName, confId) }}">&#x8B;</a></li>
+            {% endif %}
+
+            {% if pb.displayStart > pb.first %}
+                <li class="page-item">...</li>
+            {% endif %}
+
+            {% for pageNum in pb.pages %}
+                {% set pageIdx = pageNum - 1 %}
+                {# Achtung: Da der Proxy 1-basiert ist, der Link aber 0-basiert sein muss: #}
+                <li class="page-item {{ pageIdx == pb.current ? 'active' }}"><a class="page-link" href="{{ _self._page_uri(pageIdx, paramName, confId) }}">{{ pageNum }}</a></li>
+            {% endfor %}
+
+            {% if pb.displayEnd < pb.last %}
+                <li class="page-item">...</li>
+            {% endif %}
+
+            {% if pb.next %}
+                {# Der Link für die nächste Seite #}
+                <li class="page-item"><a class="page-link" href="{{ _self._page_uri(pb.next, paramName, confId) }}">&#x9B;</a></li>
+                {# Der Link für die letzte Seite #}
+                <li class="page-item"><a class="page-link" href="{{ _self._page_uri(pb.last, paramName, confId) }}">&raquo;</a></li>
+            {% endif %}
+        </ul>
+        </nav>
+    {% endif %}
+{% endmacro %}
+
+{% macro _page_link(label, currentPage, paramName, confId) %}
+    {{ label|raw|t3link({'ts_path': confId ~ 'link.', 'params': {(paramName):currentPage}}) }}
+{% endmacro %}
+
+{% macro _page_uri(currentPage, paramName, confId) %}
+    {{ t3url({'ts_path': confId ~ 'link.', 'params': {(paramName):currentPage}}) }}
+{% endmacro %}
