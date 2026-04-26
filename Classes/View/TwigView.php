@@ -1,5 +1,6 @@
 <?php
-namespace System23\T3twigs\View;
+
+namespace System25\T3twigs\View;
 
 /***************************************************************
  * Copyright notice
@@ -25,29 +26,39 @@ namespace System23\T3twigs\View;
  ***************************************************************/
 
 //use System25\T3twigs\Twig\RendererTwig as Renderer;
+
+use Sys25\RnBase\Configuration\Processor;
+use Sys25\RnBase\Frontend\Request\RequestInterface;
 use Sys25\RnBase\Frontend\View\AbstractView;
 use Sys25\RnBase\Frontend\View\ViewInterface;
+use System25\T3twigs\Twig\RendererTwig;
 
 class TwigView extends AbstractView implements ViewInterface
 {
     /**
-     * @param string                                      $view
-     * @param \Sys25\RnBase\Configuration\ConfigurationInterface $configurations
+     * @param string $view
+     * @param RequestInterface $request
      *
      * @return string
      */
     public function render($view, RequestInterface $request)
     {
+        /** @var Processor $configurations */
         $configurations = $request->getConfigurations();
-        $renderer = Renderer::instance(
-            $configurations,
-            $request->getConfId().'template.',
-            // provide fallback template file (always a full filepath)
-            $this->getTemplate($view, '.html.twig')
-        );
+        // Wir sorgen dafür, dass die globale Config in die aktuelle Config übernommen wird.
+        $renderingConfig = new Processor();
+        $configArr = $configurations->getConfigArray();
+        if (!isset($configArr['t3twigs'])) {
+            $configArr['t3twigs'] = '< lib.tx_t3twigs';
+        }
+        $renderingConfig->init($configArr, $configurations->getCObj(), $renderingConfig->getExtensionKey(), $renderingConfig->getQualifier());
+        $renderer = RendererTwig::instance();
 
         return $renderer->render(
-            $request->getViewContext()->getArrayCopy()
+            $request->getViewContext()->getArrayCopy(),
+            $renderingConfig,
+            $request->getConfId().'template.',
+            $this->getTemplate($view, '.html.twig')
         );
     }
 

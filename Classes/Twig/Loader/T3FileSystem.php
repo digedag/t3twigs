@@ -1,0 +1,108 @@
+<?php
+
+namespace System25\T3twigs\Twig\Loader;
+
+use Sys25\RnBase\Utility\Environment;
+use Sys25\RnBase\Utility\Extensions;
+use Twig\Loader\FilesystemLoader;
+
+/***************************************************************
+ * Copyright notice
+ *
+ * (c) 2024 Rene Nitzsche (rene@system25.de)
+ * All rights reserved
+ *
+ * This script is part of the TYPO3 project. The TYPO3 project is
+ * free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * The GNU General Public License can be found at
+ * http://www.gnu.org/copyleft/gpl.html.
+ *
+ * This script is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * This copyright notice MUST APPEAR in all copies of the script!
+ ***************************************************************/
+
+class T3FileSystem extends FilesystemLoader
+{
+    private static $sysExtKeys = [
+        'core',
+        'extbase',
+        'fluid',
+        'extensionmanager',
+        'lang',
+        'saltedpasswords',
+        'backend',
+        'filelist',
+        'frontend',
+        'install',
+        'recordlist',
+        'sv',
+        't3skin',
+        'documentation',
+        'info',
+        'info_pagetsconfig',
+        'setup',
+        'rtehtmlarea',
+        'rsaauth',
+        'func',
+        'wizard_crpages',
+        'wizard_sortpages',
+        'about',
+        'aboutmodules',
+        'belog',
+        'beuser',
+        'context_help',
+        'cshmanual',
+        'felogin',
+        'fluid_styled_content',
+        'form',
+        'impexp',
+        'lowlevel',
+        'reports',
+        'sys_note',
+        't3editor',
+        'tstemplate',
+        'viewpage',
+    ];
+
+    public function __construct($paths = [], $rootPath = null)
+    {
+        parent::__construct($paths, $rootPath);
+        // Now add TYPO3 Extensions
+        $this->addT3Namespaces();
+    }
+
+    /**
+     * Add namespaces for TYPO3 extensions under EXT:extName/Resources/Private/
+     * and fileadmin.
+     * Template can be loaded with @EXT:extName/MyTemplate.html.twig.
+     */
+    protected function addT3Namespaces()
+    {
+        $extKeys = array_filter(
+            Extensions::getLoadedExtensionListArray(),
+            function ($v) {
+                return !in_array($v, self::$sysExtKeys);
+            }
+        );
+        foreach ($extKeys as $extKey) {
+            $path = Extensions::extPath($extKey);
+            $path .= 'Resources/Private/Templates/';
+            if (is_dir($path)) {
+                $this->addPath($path, 'EXT:'.$extKey);
+            }
+        }
+        // add fileadmin
+        $path = Environment::getPublicPath().'/fileadmin/';
+        if (is_dir($path)) {
+            $this->addPath($path, 'fileadmin');
+        }
+    }
+}
